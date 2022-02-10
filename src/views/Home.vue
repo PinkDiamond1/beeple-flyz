@@ -9,8 +9,12 @@
 			<a href="https://github.com/binomialLLC/basis_universal" target="_blank">Basis Universal GPU Texture Codec</a>
 		</div>
 
-    <div id="canvas-holder"  >
-      </div>
+    <div id="canvas-holder" class="relative"  >
+
+      <div class="absolute border-2 border-white p-2 text-white" style="top:25px;left:25px;">
+        Cryptoflyz #{{imageId}}  
+       </div>
+    </div>
 
 
 </div>
@@ -76,13 +80,19 @@ export default {
 			controls.autoRotate = true;
 
 			// PlaneGeometry UVs assume flipY=true, which compressed textures don't support.
-			const geometry =  ( new THREE.PlaneGeometry() );
-			const material = new THREE.MeshBasicMaterial( {
+			const fly_geometry =  ( new THREE.PlaneGeometry() );
+			const fly_material = new THREE.MeshBasicMaterial( {
 				color: 0xFFFFFF,
 				side: THREE.DoubleSide
 			} );
-			const mesh = new THREE.Mesh( geometry, material );
-			scene.add( mesh );
+			const fly_mesh = new THREE.Mesh( fly_geometry, fly_material );
+			scene.add( fly_mesh );
+
+
+      const box_geometry = new THREE.BoxGeometry( 1.4, 2, 1.4 ); 
+      const box_material = new THREE.MeshBasicMaterial( { color: 0xffffff,   wireframe: true, } ); 
+      const box_mesh = new THREE.Mesh( box_geometry, box_material );  
+      scene.add( box_mesh );
 
 		 
 			// Samples: sample_etc1s.ktx2, sample_uastc.ktx2, sample_uastc_zstd.ktx2
@@ -95,10 +105,10 @@ export default {
  
 				const texture = new THREE.TextureLoader().load( `./images/flyz/${this.imageId}.jpg` );
  
-				material.map = texture;
-				material.transparent = true;
+				fly_material.map = texture;
+				fly_material.transparent = true;
 
-				material.needsUpdate = true;
+				fly_material.needsUpdate = true;
 
 			} catch ( e ) {
 

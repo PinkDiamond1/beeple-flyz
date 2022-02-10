@@ -39,14 +39,23 @@ export default {
 
     }
   },
-  created(){
-       this.imageId = this.$route.params.id
+  watch:{
+    $route (to, from){
+         this.imageId = this.$route.params.id
 
 
-    if(!this.imageId || isNaN(this.imageId)){
-      this.imageId = 1
-    }
-  },
+        if(!this.imageId || isNaN(this.imageId)){
+          this.imageId = 1
+        }
+
+          this.rebuildScene()
+      }
+
+     
+
+      
+  } ,
+ 
   mounted(){
 
     this.imageId = this.$route.params.id
@@ -57,6 +66,7 @@ export default {
     }
 
     this.init()
+     this.rebuildScene()
   },
 
   methods: {
@@ -79,12 +89,34 @@ export default {
 			camera = new THREE.PerspectiveCamera( 60, width / height, 0.1, 100 );
 			camera.position.set( 2, 1.5, 1 );
 			camera.lookAt( scene.position );
-			scene.add( camera );
+		
 
 			controls = new OrbitControls( camera, renderer.domElement );
 			controls.autoRotate = true;
 
-			// PlaneGeometry UVs assume flipY=true, which compressed textures don't support.
+
+      this.rebuildScene()
+
+
+
+		
+
+			this.animate();
+
+
+      window.addEventListener( 'resize', this.onWindowResize );
+
+    },
+
+    rebuildScene(){
+
+      while(scene.children.length > 0){ 
+          scene.remove(scene.children[0]); 
+      }
+
+      	scene.add( camera );
+
+      	// PlaneGeometry UVs assume flipY=true, which compressed textures don't support.
 			const fly_geometry =  ( new THREE.PlaneGeometry() );
 			const fly_material = new THREE.MeshBasicMaterial( {
 				color: 0xFFFFFF,
@@ -126,10 +158,6 @@ export default {
 			}
 
 
-			this.animate();
-
-
-      window.addEventListener( 'resize', this.onWindowResize );
 
     },
     animate() {

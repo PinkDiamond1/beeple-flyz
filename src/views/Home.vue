@@ -39,14 +39,19 @@ export default {
 
     }
   },
+  created(){
+       this.imageId = this.$route.params.id
 
+
+    if(!this.imageId || isNaN(this.imageId)){
+      this.imageId = 1
+    }
+  },
   mounted(){
 
     this.imageId = this.$route.params.id
 
-    console.log('this.$route.params',this.$route.params)
-
-
+   
     if(!this.imageId || isNaN(this.imageId)){
       this.imageId = 1
     }

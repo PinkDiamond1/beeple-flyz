@@ -38,7 +38,9 @@ export default {
 
   mounted(){
 
-    this.imageId = this.$route.query.id
+    this.imageId = this.$route.params.id
+
+    console.log('this.$route.params',this.$route.params)
 
 
     if(!this.imageId || isNaN(this.imageId)){

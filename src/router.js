@@ -13,7 +13,7 @@ export default new Router({
   routes: [
 
     {
-      path: '/:id',
+      path: '/fly/:id',
       name: 'home_with_id',
       component: Home
     },

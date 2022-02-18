@@ -7,6 +7,25 @@
 
 @import "tailwindcss/utilities";
 
+/* -----
+SVG Icons - svgicons.sparkk.fr
+----- */
+
+.svg-icon {
+  width: 4em;
+  height: 4em;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+  fill: #f7f7f7;
+}
+
+.svg-icon circle {
+  stroke: #d4d4d4;
+  stroke-width: 1;
+}
 
 
 .loader {

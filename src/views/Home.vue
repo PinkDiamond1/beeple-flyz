@@ -12,7 +12,7 @@
     <div id="canvas-holder" class="relative"  >
 
       <div class="absolute border-2 border-white p-2 text-white" style="top:25px;left:25px;">
-       <div class="text-center p-4">  Cryptoflyz #{{imageId}}   </div>
+       <div class="text-center p-4 cursor-pointer" v-on:click="promptFlyNumber()">  Cryptoflyz #{{imageId}}   </div>
 
        <div class="text-center">
             <svg class="svg-icon inline  cursor-pointer" viewBox="0 0 20 20" v-on:click="incrementFlyz(-1)">
@@ -226,6 +226,37 @@ export default {
  
 
          this.rebuildScene()
+
+      },
+
+      promptFlyNumber(){
+
+        this.$dialog
+          .prompt({
+            title: "Jump to Cryptofly #",
+            body: "" 
+          }, {
+            promptHelp: 'Type in a number and click "[+:okText]"'
+          })
+          .then(dialog => {
+
+            if(dialog.data && !isNaN(dialog.data)){
+              console.log('got ', dialog.data)
+              this.imageId = parseInt(dialog.data)
+
+              this.rebuildScene()
+
+            }else{
+              this.$dialog.alert(`invalid entry: ${dialog.data}` )
+            }
+            
+          })
+          .catch(() => {
+            // Triggered when dialog is dismissed by user
+
+            console.log('Prompt dismissed');
+          });
+
 
       }
       

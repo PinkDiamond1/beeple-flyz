@@ -1,7 +1,6 @@
-# 0xBitcoin Tailwind-Vue Website
+# Beeple Flyz NFT Viewer
 
-Deployed at https://0xbitcoin.org
-
+ 
 
 
 
